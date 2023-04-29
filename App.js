@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {  Text, View } from 'react-native';
+
+
+//screens
+import Counter from './src/components.jsx/counter';
+import Cover from './src/screens/cover';
+
+
+// layouts 
+import DrawerLayout from './src/layouts.jsx/drawerLayout';
+
+
+
+//Redux
+import { Provider } from 'react-redux';
+import {store} from './src/store/store'
+
+
+
+// Navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getDrawerStatusFromState } from '@react-navigation/drawer';
+import 'react-native-gesture-handler';
+
+
+
+//dotenv
+import {USER} from '@env'
 
 export default function App() {
+
+
+  const Stack = createNativeStackNavigator();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+    <NavigationContainer independent={true}>
+
+    <Stack.Navigator >
+      <Stack.Screen name='cover' component={Cover}  initialParams={{ name: USER }} />
+      <Stack.Screen name='home' component={DrawerLayout} options={{ headerShown: false}}
+ />
+
+    </Stack.Navigator>
+
+   
+    </NavigationContainer>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
