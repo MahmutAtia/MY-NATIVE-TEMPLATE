@@ -8,7 +8,8 @@ import { NavigationContainer } from '@react-navigation/native';
 
 // pages
 import Feeds from "../screens/feeds";
-import Setting from "../screens/settings";
+import Spaces from "../screens/spaces";
+import SpacesLayout from "./spacesLayout";
 
 const TabLayout = () => {
 
@@ -20,7 +21,8 @@ const TabLayout = () => {
       <Tab.Navigator initialRouteName="feeds" >
 
         <Tab.Screen name="feeds" component={Feeds} options= {{headerShown : false}} />
-        <Tab.Screen name="settings" component={Setting}  options= {{headerShown : false}}/>
+        <Tab.Screen name="Spaces" component={SpacesLayout}  options= {{headerShown : false}}/>
+
 
 
       </Tab.Navigator>

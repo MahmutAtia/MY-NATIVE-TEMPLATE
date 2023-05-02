@@ -2,7 +2,6 @@ import {  Text, View } from 'react-native';
 
 
 //screens
-import Counter from './src/components.jsx/counter';
 import Cover from './src/screens/cover';
 
 
@@ -20,7 +19,6 @@ import {store} from './src/store/store'
 // Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { getDrawerStatusFromState } from '@react-navigation/drawer';
 import 'react-native-gesture-handler';
 
 
