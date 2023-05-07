@@ -5,6 +5,8 @@ import React from "react";
 import Spaces from "../screens/spaces";
 import Space from "../screens/space";
 import NoteScreen from "../screens/noteScreen";
+import NoteEditScreen from "../screens/NoteEditScreen";
+import EditNoteDialog from "../components/dialogs/EditDialog";
 
 const SpacesLayout = () => {
   const Stack = createNativeStackNavigator();
@@ -26,6 +28,12 @@ const SpacesLayout = () => {
         <Stack.Screen
           name="notes"
           component={NoteScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="noteEdit"
+          component={EditNoteDialog}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
