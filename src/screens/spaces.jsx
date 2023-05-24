@@ -67,6 +67,7 @@ const Spaces = ({ navigation }) => {
         "CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT , title VARCHAR(30), text VARCHAR(255),\
             cat_id INTEGER , space_id INTGER , completed INTEGER , created_at TEXT,\
             completed_at TEXT, urg INTEGER , imp INTEGER,\
+            onProgress INTEGER ,\
             FOREIGN KEY (space_id) REFERENCES spaces(id),\
             FOREIGN KEY (cat_id)  REFERENCES cats(id))",
         null,
@@ -144,8 +145,7 @@ const Spaces = ({ navigation }) => {
 
 
   return (
-    <View className="flex-1  p-[1.5vh] bg-orange-50">
-      <Text>gsklgö</Text>
+    <View className="flex-1  p-[1.5vh] bg-white">
       {spacesData?.map((item, index) => {
         return (
         

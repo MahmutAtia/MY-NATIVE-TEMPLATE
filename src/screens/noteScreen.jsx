@@ -14,15 +14,25 @@ import AddNoteDialog from "../components/dialogs/addNoteDialog";
 
 // database
 import db from "../db";
-import { TouchableOpacity } from "react-native";
 import Note from "../components/note";
 
 // EDIT DIALOG
 import EditNoteDialog from "../components/dialogs/EditDialog";
 
+
+//Helper functions
+import { markAsCompleted,markAsOnProgress } from "../functions/functions";
+
+
+import { useIsFocused } from '@react-navigation/native';
+
+
 const NoteScreen = ({ route, navigation }) => {
   // route item  is the category
   const { item } = route.params;
+
+  const isFocused = useIsFocused();
+
 
   // states
   const [notes, setNotes] = useState([]); // all notes
@@ -46,30 +56,16 @@ const NoteScreen = ({ route, navigation }) => {
         (txObj, err) => console.log(err)
       );
     });
-  }, []);
+  }, [isFocused ]);
 
-  // mark completed
-  markAsCompleted = (item) => {
-    let date = new Date().toJSON().slice(0, 10);
-    console.log("adding to note");
-    db.transaction((tx) => {
-      tx.executeSql(
-        "UPDATE notes SET completed = ? , completed_at = ? WHERE id = ?",
-        item.completed === 1 ? [0, null, item.id] : [1, date, item.id],
-        (txObj, resultset) => {
-          // if (resultset.rowsAffected > 0) {
-          //   let existNotes = [...notes].map((item) => {
-          //     if (item.id === id) {
-          //       item.completed = 1;
-          //     }
-          //   });
-          // setNotes(notes);
-        },
 
-        (txObj, err) => console.log(err)
-      );
-    });
-  };
+
+
+
+  console.log("is focused", isFocused);
+
+
+
 
   const handleEditItem = (item) => {
     setSelectedNote(item);
@@ -89,7 +85,8 @@ const NoteScreen = ({ route, navigation }) => {
             <Note
               key={item.id}
               item={item}
-              markAsCompleted={markAsCompleted}
+              markAsCompleted={()=>markAsCompleted(item,notes,setNotes)}
+              markAsOnProgress={()=>markAsOnProgress (item,notes,setNotes)}
               handleEditItem={handleEditItem}
             />
           </>

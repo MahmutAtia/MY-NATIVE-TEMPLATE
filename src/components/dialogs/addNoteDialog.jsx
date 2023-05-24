@@ -15,12 +15,12 @@ const AddNoteDialog = ({ item, visable, setVisable, notes, setNotes }) => {
   const [note, setNote] = useState("");
 
   // add note
-  const addNote = (title, text, cat_id, space_id, created_at) => {
+  const addNote = (title, text, cat_id, space_id, created_at, urg ,imp) => {
     console.log(title, text, cat_id, space_id, created_at);
 
     db.transaction((tx) => {
       tx.executeSql(
-        "INSERT INTO notes (title ,text ,cat_id ,space_id ,created_at ) VALUES (?,?,?,?,?)",
+        "INSERT INTO notes (title ,text ,cat_id ,space_id ,created_at ,urg ,imp ) VALUES (?,?,?,?,?,?,?)",
         [title, text, cat_id, space_id, created_at],
         (txObj, resultset) => {
           console.log("adding database");
@@ -32,6 +32,8 @@ const AddNoteDialog = ({ item, visable, setVisable, notes, setNotes }) => {
             created_at: created_at,
             cat_id: cat_id,
             space_id: space_id,
+            urg : urg,
+            imp : imp
           });
           setNotes(existingNotes);
         },
@@ -80,7 +82,7 @@ const AddNoteDialog = ({ item, visable, setVisable, notes, setNotes }) => {
             let date = new Date().toJSON().slice(0, 10);
             console.log(date);
 
-            addNote(title, note, item.id, item.space_id, date);
+            addNote(title, note, item.id, item.space_id, date, checked[0], checked[1]);
           }}
         />
         <Dialog.Button title="CANCEL" onPress={() => setVisable(false)} />

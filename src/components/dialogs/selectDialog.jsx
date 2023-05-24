@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  FlatList,
 } from "react-native";
 
 import { Dialog } from "@rneui/base";
@@ -21,27 +22,31 @@ const SelectDialog = ({ visable, setVisable, data, addSpace, setNotes }) => {
 
       {/* Select Area */}
 
-      {data?.map((item) => (
-        <TouchableOpacity
-        key={item.imgUrl}
-          onLongPress={() => {
-            setVisable(false);
-            addSpace(item.title, item.imgUrl);
-          }}
-          className="grid grid-cols-2 rounded-full overflow-hidden h-[15vh] w-[15vh] my-2 shadow-2xl bg-slate-400"
-        >
-          <ImageBackground
-            className="flex-1 justify-center items-center object-cover "
-            source={{ uri: item.imgUrl }}
+      <FlatList
+        keyExtractor={(item) => item.id}
+        data={data}
+        numColumns={2}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            key={item.imgUrl}
+            onLongPress={() => {
+              setVisable(false);
+              addSpace(item.title, item.imgUrl);
+            }}
+            className="rounded-full overflow-hidden h-[15vh] w-[15vh] m-2 shadow-2xl bg-slate-400"
           >
-            <Text className="text-gray-300 font-extrabold text-lg">
-              {" "}
-              {item.title}
-            </Text>
-          </ImageBackground>
-        </TouchableOpacity>
-      ))}
-
+            <ImageBackground
+              className="flex-1 justify-center items-center object-cover "
+              source={{ uri: item.imgUrl }}
+            >
+              <Text className="text-gray-300 font-extrabold text-lg">
+                {" "}
+                {item.title}
+              </Text>
+            </ImageBackground>
+          </TouchableOpacity>
+        )}
+      />
       <Dialog.Actions>
         {/* <Dialog.Button
           title="Add"

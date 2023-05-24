@@ -1,3 +1,5 @@
+import 'react-native-url-polyfill'
+
 import {  Text, View } from 'react-native';
 
 
